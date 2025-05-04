@@ -46,34 +46,27 @@ The project directory is structured as follows:
 ## Requirements
 
 - **C++ Compiler**: The C++ code relies on the standard C++ library.
-- **Python**: The Python script is used to generate event data for the fluid simulation.
 - **Python**: The Python script generate_events.py is used to generate event data for the fluid simulation.
+- **OpenMP**: Used for parallelism on the CPU.
+- **CUDA**: Used for parallelism on the GPU.
 
-OpenMP: Used for parallelism on the CPU.
-
-CUDA: Used for parallelism on the GPU.
-
-Libraries and Tools:
-
-Python
-
-OpenMP libraries (e.g., libomp for compiling with OpenMP)
-
-CUDA libraries (e.g., libcudart for compiling with CUDA)
 ### Libraries and Tools
 - Python
 - Standard C++ libraries for compilation (e.g., `g++` or `clang++`).
+- OpenMP libraries (e.g., libomp for compiling with OpenMP)
+- CUDA libraries (e.g., libcudart for compiling with CUDA)
 
 ## Installation
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/jgbarbosa/3dfluid.git
+    git clone https://github.com/vfalves1/3dfluid.git
     cd 3dfluid
     ```
 
-2. **Compile the C++ Simulation**:
-    Use the included `Makefile` to build the C++ simulation.
+2. **Compile the C++ Simulation with OpenMP or CUDA**:
+You can build the simulation using either the Makefile, depending on whether you want to run it on the CPU (OpenMP) or the GPU (CUDA).
+-**To compile with OpenMP**:
     ```bash
     make
     ```
@@ -114,42 +107,6 @@ Once you've generated the `events.txt` file, you can run the fluid simulation, w
     ```
     Total density after 1000 timesteps: 3456.789000
     ```
-
-## Example
-
-### Generating Events
-
-Here’s an example of how you can use the Python script to generate a file of events (`events.txt`):
-
-```bash
-python generate_events.py
-```
-
-This will generate an event file like the following:
-
-```
-1000
-source 10 50
-force 1 0 0 200
-source 5 150
-force 0 1 0 400
-source 8 900
-```
-
-### Problems with the generator
-If you are experiencing problems with the generator there is a events.txt file as an example in the root folder of the project.
-
-Use the file and contact the teaching staff to get help.
-
-### Running the Simulation
-
-Once `events.txt` is generated, you can run the fluid simulation using:
-
-```bash
-./fluid_sim
-```
-
-The simulation will dynamically apply the sources and forces defined in `events.txt`, simulate the fluid behavior, and print the total density after 1000 timesteps.
 
 ## Credits
 
