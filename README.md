@@ -1,8 +1,8 @@
-# Fluid Simulation with Event Manager
+# Fluid Simulation with Event Manager (Optimized with OpenMP and CUDA)
 
-This project simulates fluid dynamics using Jos Stam's stable fluid solver in 3D, incorporating dynamic events such as adding density sources and applying forces at specified timesteps. The events are generated using a Python script and read by the C++ simulation.
+This project simulates fluid dynamics using Jos Stam's stable fluid solver in 3D, incorporating dynamic events such as adding density sources and applying forces at specified timesteps. The events are generated using a Python script and read by the C++ simulation. The simulation is optimized for both OpenMP (parallelism on CPU) and CUDA (parallelism on GPU) to improve performance.
 
-This code was developed as the base code for the project of **Parallel Computing** at the **University of Minho**, 2024/2025.
+This code was developed as the base code for the Parallel Computing project at the University of Minho, 2024/2025.
 
 ## Table of Contents
 
