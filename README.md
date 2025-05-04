@@ -66,12 +66,21 @@ The project directory is structured as follows:
 
 2. **Compile the C++ Simulation with OpenMP or CUDA**:
 You can build the simulation using either the Makefile, depending on whether you want to run it on the CPU (OpenMP) or the GPU (CUDA).
--**To compile with OpenMP**:
+1.**To compile with OpenMP**:
     ```bash
+    cd OpenMP
     make
     ```
 
-    This will generate an executable named `fluid_sim`.
+    This will generate an executable named `fluid_sim_omp`.
+   
+2.**To compile with  CUDA**:
+    ```bash
+    cd Cuda
+    make
+    ```
+
+    This will generate an executable named `fluid_sim_cuda`.
 
 ## Usage
 
@@ -93,14 +102,19 @@ The Python script `generate_events.py` generates a file (`events.txt`) that spec
 
 Once you've generated the `events.txt` file, you can run the fluid simulation, which will read the events and apply them over the course of the simulation.
 
-1. **Run the simulation**:
+1. **Run the simulation with OpenMP**:
+   -**Run with OpenMP**:
     ```bash
-    ./fluid_sim
+    ./fluid_sim_omp
     ```
-
+    
+ -**Run with Cuda**:
+    ```bash
+    ./fluid_sim_cuda
+    ```
     The simulation will read the `events.txt` file, apply the specified sources and forces at the correct timesteps, and calculate the fluid dynamics.
 
-2. **Simulation Output**:
+3. **Simulation Output**:
     At the end of the simulation, the total density in the fluid field will be printed.
 
     Example output:
@@ -108,13 +122,52 @@ Once you've generated the `events.txt` file, you can run the fluid simulation, w
     Total density after 1000 timesteps: 3456.789000
     ```
 
+## Example
+
+### Generating Events
+
+Here’s an example of how you can use the Python script to generate a file of events (`events.txt`):
+
+```bash
+python generate_events.py
+```
+
+This will generate an event file like the following:
+
+```
+1000
+source 10 50
+force 1 0 0 200
+source 5 150
+force 0 1 0 400
+source 8 900
+```
+
+### Running the Simulation
+
+After generating the event file, choose which version to run:
+
+1. **OpenMP version (CPU)**:
+```bash
+./fluid_sim_omp
+```
+2. **CUDA version (GPU)**:
+```bash
+./fluid_sim_omp
+```
+
+Both versions will read from the same events.txt file and simulate fluid dynamics according to the specified events.
+
+At the end, the program will print something like:
+```bash
+Total density after 1000 timesteps: 3456.789000
+```
+
 ## Credits
 
-This code was developed as the base code for the **Parallel Computing** project at the **University of Minho**, 2024/2025.
+This code was developed as the final project for the **Parallel Computing** course at the **University of Minho**, 2024/2025.
 
 Authors:
-- **João Luis Sobral**  
-- **João Barbosa**  
-- **Andre Pereira**  
-- **Rui Silva**  
-- **Miguel Braga**
+- **Vitor Fernandes Alves** 
+- **Diogo Gomes Rodrigues**  
+- **Gonçalo Ribeiro Rodrigues** 
