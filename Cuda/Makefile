@@ -9,19 +9,19 @@ EXEC = fluid_sim
 CUDA_PATH = /share/apps/cuda/11.3.1
 LIBRARY_PATH = $(CUDA_PATH)/lib64
 
-# Defina o alvo padrão: compilar e linkar com CUDA
+# Define the default target: compile and link with CUDA
 all:  $(OBJ)
 	$(NVCC) $(OBJ) -o $(EXEC) -L$(LIBRARY_PATH) -lcudart
 
-# Compilando o arquivo main.cu com NVCC para gerar main.o
+# Compile the main.cu file with NVCC to generate main.o
 main.o: main.cu
 	$(NVCC) $(CUDAFLAGS) -c main.cu -o main.o
 
-# Compilando o EventManager.cpp com g++
+# Compile EventManager.cpp with g++ to generate EventManager.o
 EventManager.o: EventManager.cpp
 	$(CC) $(CFLAGS) -c EventManager.cpp -o EventManager.o
 
-# Compilando o fluid_solver.cu com NVCC para gerar fluid_solver.o
+# Compile fluid_solver.cu with NVCC to generate fluid_solver.o
 fluid_solver.o: fluid_solver.cu
 	$(NVCC) $(CUDAFLAGS) -c fluid_solver.cu -o fluid_solver.o
 
