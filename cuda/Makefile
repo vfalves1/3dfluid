@@ -6,48 +6,26 @@ SRC = main.cu EventManager.cpp fluid_solver.cu
 OBJ = main.o EventManager.o fluid_solver.o
 EXEC = fluid_sim
 
-CPP_seq = g++ -Wall -O3 -g -fno-omit-frame-pointer -funroll-loops -ftree-vectorize 
-SRC_Seq = main.cpp fluid_solver.cpp EventManager.cpp
-
 CUDA_PATH = /share/apps/cuda/11.3.1
+LIBRARY_PATH = $(CUDA_PATH)/lib64
 
-# Sbatch scripts
-CUDA_SBATCH = cuda.sh
-SEQ_SBATCH = sequential.sh
+# Defina o alvo padrão: compilar e linkar com CUDA
+all:  $(OBJ)
+	$(NVCC) $(OBJ) -o $(EXEC) -L$(LIBRARY_PATH) -lcudart
 
-
-all: par seq
-
-seq:
-	$(CPP_seq) $(SRC_Seq) -o fluid_sim_seq
-
-par: $(OBJ)
-	$(NVCC) $(OBJ) -o $(EXEC) -L$(CUDA_PATH)/lib64 -lcudart
-
+# Compilando o arquivo main.cu com NVCC para gerar main.o
 main.o: main.cu
 	$(NVCC) $(CUDAFLAGS) -c main.cu -o main.o
 
+# Compilando o EventManager.cpp com g++
 EventManager.o: EventManager.cpp
 	$(CC) $(CFLAGS) -c EventManager.cpp -o EventManager.o
 
+# Compilando o fluid_solver.cu com NVCC para gerar fluid_solver.o
 fluid_solver.o: fluid_solver.cu
 	$(NVCC) $(CUDAFLAGS) -c fluid_solver.cu -o fluid_solver.o
 
-clean: clean_seq clean_par
-	@echo All clean.
-
-clean_seq:
-	@echo Cleaning fluid_sim_seq...
-	@rm -f fluid_sim_seq
-	@echo Done.
-
-clean_par:
+clean: 
 	@echo Cleaning fluid_sim...
 	@rm -f  $(OBJ) $(EXEC)
 	@echo Done.
-
-run:
-	sbatch $(CUDA_SBATCH)
-
-runseq:
-	sbatch $(SEQ_SBATCH)
