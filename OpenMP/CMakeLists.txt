@@ -1,15 +1,15 @@
-# CMakeLists.txt dentro de openmp/
+# CMakeLists.txt inside openmp/
 
-# Arquivos de código fonte para a versão OpenMP
+# Source files for the OpenMP version
 set(OPENMP_SOURCES main.cpp EventManager.cpp fluid_solver.cpp)
 
-# Criar o executável OpenMP
+# Create the OpenMP executable
 add_executable(fluid_sim_omp ${OPENMP_SOURCES})
 
-# Definir as opções de compilação para OpenMP
+# Define compilation options for OpenMP
 target_compile_options(fluid_sim_omp PRIVATE -Wall -O3)
 
-# Incluir o suporte a OpenMP
+# Include OpenMP support
 if(OpenMP_CXX_FLAGS)
     target_compile_options(fluid_sim_omp PRIVATE ${OpenMP_CXX_FLAGS})
     target_link_libraries(fluid_sim_omp PRIVATE OpenMP::OpenMP_CXX)
